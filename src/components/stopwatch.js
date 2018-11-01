@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import FormatTime from './format_time';
 
 class Stopwatch extends Component {
     constructor (props) {
@@ -11,6 +12,7 @@ class Stopwatch extends Component {
         this.start = this.start.bind(this);
         this.stop = this.stop.bind(this);
         this.update = this.update.bind(this);
+        this.reset = this.reset.bind(this);
     }
     start () {
         this.setState({
@@ -33,14 +35,22 @@ class Stopwatch extends Component {
             setTimeout(this.update,10);
         } 
     }
+    reset () {
+        this.setState ({
+            state: 'stopped',
+            start: null,
+            elapsed: 0
+        });
+    }
     render ( ){
         const {status,elapsed} = this.state;
         return (
             <div>
-                <h1>{this.state.elapsed}</h1>
+                <h1><FormatTime elapsed = {elapsed}/></h1>
                 <p>{this.state.status}</p>
                 <button onClick = {this.start}>Start</button>
                 <button onClick = {this.stop}>Stop</button>
+                <button onClick = {this.reset}>Reset</button>
             </div>
         )
     }
