@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Movie from './movies';
+import Movie from './movie';
 import axios from 'axios';
 
 class MovieContainer extends Component {
@@ -17,16 +17,16 @@ class MovieContainer extends Component {
             this.setState ({
                 movies: resp.data.feed.entry
             });
-            console.log(resp);
         } );
     };
 
     render () {
-        console.log('The state is:', this.state);
+        const movieList = this.state.movies.map( (movieInfo, index) => {
+            return <Movie info = {movieInfo} key = {index}/>
+        });
         return (
             <div>
-                <h2>Movie Container</h2>
-                <Movie/>
+                {movieList}
             </div>
         );
     }
